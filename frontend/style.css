@@ -1,112 +1,146 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-html, body {
-  height: 100%;
-}
-
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(120deg, #588285, #0970ff);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(120deg, #13004027, #1300409f);
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
 }
 
-.container {
-  width: 90%;
-  max-width: 500px;
-  text-align: center;
-  
+.main-container {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
 }
 
 h1 {
-  color: #fff;
-  margin-bottom: 5px;
-  
+    color: #fff;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
+}
+h1 img {
+    vertical-align: middle;
 }
 
 .subtitle {
-  color: #f0f0f0;
-  font-size: 14px;
-  margin-bottom: 20px;
+    color: #f0f0f0;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* Wuxuu labada box isku dhinac dhigayaa */
+.content-wrapper {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap; /* Muhiim u ah in mobile-ka uu hoos u dego */
+    justify-content: center;
 }
 
 .card {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0px 6px 20px rgba(0,0,0,0.15);
-  display: flex;
-  flex-direction: column;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0px 6px 20px rgba(0,0,0,0.15);
+    flex: 1; /* Wuxuu u ogolaanayaa inuu baaxad qaato */
+    min-width: 350px;
+}
+
+.input-box {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-box h2, .result-box h2 {
+    color: #0970ff;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 label {
-  margin: 8px 0 4px;
-  text-align: left;
-  font-weight: 600;
+    margin: 8px 0 4px;
+    text-align: left;
+    font-weight: 600;
+}
+label img {
+    vertical-align: middle;
+    margin-right: 5px;
 }
 
 input, select {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  outline: none;
-  transition: border 0.2s;
-}
-
-input:focus, select:focus {
-  border: 1px solid #66a6ff;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    outline: none;
 }
 
 button {
-  margin-top: 15px;
-  padding: 12px;
-  background: #66a6ff;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
+    margin-top: 25px;
+    padding: 14px;
+    background: #66a6ff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 button:hover {
-  background: #4d8fe3;
+    background: #4d8fe3;
 }
 
-.result-card {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 12px;
-  background: #fff;
-  box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
-  font-size: 18px;
-  font-weight: bold;
+/* RESULT BOX STYLES */
+.result-box {
+    display: flex;
+    flex-direction: column;
 }
 
-.hidden {
-  display: none;
+#result {
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: bold;
+    min-height: 100px; /* Muhiim u ah inuu baaxad yeesho */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease;
 }
 
-@media (max-width: 480px) {
-  .container {
-  width: 95%;
-  max-width: 768px;
-  height: 60%;
-}
-.card {
-  background: #ffffff;
-  padding: 30px;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  height: 80%;
-  justify-content: center;
-  box-shadow: 0px 6px 20px rgba(0,0,0,0.15);
+/* VISUAL FEEDBACK */
+.initial-message {
+    background-color: #f0f0f0;
+    color: #6c757d;
+    border-left: 5px solid #6c757d;
 }
 
+.result-success {
+    background-color: #e6f7ed; /* Light Green */
+    color: #1e8449; /* Dark Green */
+    border-left: 5px solid #1e8449;
+    box-shadow: 0 0 10px rgba(30, 132, 73, 0.4);
+}
+
+.result-error {
+    background-color: #fde8e8; /* Light Red */
+    color: #dc3545; /* Dark Red */
+    border-left: 5px solid #dc3545;
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.4);
+}
+
+.result-loading {
+    background-color: #e6f1ff; /* Light Blue */
+    color: #4d8fe3; /* Blue */
+    border-left: 5px solid #4d8fe3;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 800px) {
+    .content-wrapper {
+        flex-direction: column; /* Box-ashtu waxay isku dul istaagayaan */
+    }
 }

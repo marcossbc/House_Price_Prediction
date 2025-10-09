@@ -7,27 +7,28 @@ import joblib
 import os
 import json
 
-CSV_PATH = "Dataset/house_l0000_dataset.csv"
+CSV_PATH = "Dataset/House_Rent.csv"
 df = pd.read_csv(CSV_PATH)
 
-# # === INITIAL SNAPSHOT ===
-# print("\n=== INITIAL HEAD ===")
-# print(df.head())
+# === INITIAL SNAPSHOT ===
+print("\n=== INITIAL HEAD ===")
+print(df.head())
 
-# print("\n=== INITIAL INFO ===")
-# print(df.info())
+print("\n=== INITIAL INFO ===")
+print(df.info())
 
-# print("\n=== INITIAL MISSING VALUES ===")
-# print(df.isnull().sum())
+print("\n=== INITIAL MISSING VALUES ===")
+print(df.isnull().sum())
 
 # 2) Clean target formatting
 df["Price"] = df["Price"].replace(r"[\$,]", "", regex=True).astype(float)
+
 
 # 3) Fix categorical issues BEFORE imputation
 df["Location"] = df["Location"].replace({"Subrb": "Suburb", "??": pd.NA})
 
 # 4) Impute missing values
-df["Size_sqft"] = df["Size_sqft"].fillna(df["Size_sqft"].median())
+df["Size_m2"] = df["Size_m2"].fillna(df["Size_m2"].median())
 df["Bedrooms"]  = df["Bedrooms"].fillna(df["Bedrooms"].mode()[0])
 df["Location"]  = df["Location"].fillna(df["Location"].mode()[0])
 
@@ -35,7 +36,7 @@ df["Location"]  = df["Location"].fillna(df["Location"].mode()[0])
 before = df.shape
 df = df.drop_duplicates()
 after = df.shape
-# print(f"Dropped duplicates: before = {before} after = {after}")
+print(f"Dropped duplicates: before = {before} after = {after}")
 
 # 6) IQR capping
 def iqr_fun(series, k=1.5):
@@ -46,10 +47,10 @@ def iqr_fun(series, k=1.5):
     return lower, upper
 
 low_price, high_price = iqr_fun(df["Price"])
-low_size,  high_size  = iqr_fun(df["Size_sqft"])
+low_size,  high_size  = iqr_fun(df["Size_m2"])
 
-df["Price"]    = df["Price"].clip(lower=low_price, upper=high_price)
-df["Size_sqft"] = df["Size_sqft"].clip(lower=low_size,  upper=high_size)
+df["Price"] = df["Price"].clip(lower=low_price, upper=high_price)
+df["Size_m2"] = df["Size_m2"].clip(lower=low_size,  upper=high_size)
 
 # 7) One-hot encode
 df = pd.get_dummies(df, columns=["Location"], drop_first=False, dtype="int")
@@ -57,8 +58,8 @@ df = pd.get_dummies(df, columns=["Location"], drop_first=False, dtype="int")
 # 8) Feature engineering (no leakage)
 CURRENT_YEAR = 2025
 df["HouseAge"] = CURRENT_YEAR - df["YearBuilt"]
-df["Rooms_per_1000sqft"] = (df["Bedrooms"] + df["Bathrooms"]) / (df["Size_sqft"] / 1000)
-df["Size_per_Bedroom"] = df["Size_sqft"] / df["Bedrooms"].replace(0, np.nan)  # fixed denominator
+df["Rooms_per_1000m2"] = (df["Bedrooms"] + df["Bathrooms"]) / (df["Size_m2"] / 1000)
+df["Size_per_Bedroom"] = df["Size_m2"] / df["Bedrooms"].replace(0, np.nan)  # fixed denominator
 df["Is_City"] = df["Location_City"].astype(int)
 df["LogPrice"] = np.log1p(df["Price"])
 
@@ -78,17 +79,17 @@ joblib.dump(scaler, "modeles/house_scaler.pkl")  #dump save gareyn scaler ka
 TRAIN_COLUMNS = df.drop(columns= ["Price", "LogPrice"]).columns.tolist()
 json.dump(TRAIN_COLUMNS, open("modeles/train_columns.json", "w"))
 
-# # === FINAL SNAPSHOT ===
-# print("\n=== FINAL HEAD ===")
-# print(df.head())
+# === FINAL SNAPSHOT ===
+print("\n=== FINAL HEAD ===")
+print(df.head())
 
-# print("\n=== FINAL INFO ===")
-# print(df.info())
+print("\n=== FINAL INFO ===")
+print(df.info())
 
-# print("\n=== FINAL MISSING VALUES ===")
-# print(df.isnull().sum())
+print("\n=== FINAL MISSING VALUES ===")
+print(df.isnull().sum())
 
 # 10) Save
-OUT_PATH = "Dataset/house_l0000_Clean_dataset.csv"
+OUT_PATH = "Dataset/Clean_House_Rent.csv"
 df.to_csv(OUT_PATH, index=False)
 print(f"Saved Cleaned dataset  name:{OUT_PATH}")

@@ -1,1 +1,1 @@
-["Size_sqft", "Bedrooms", "Bathrooms", "YearBuilt", "Location_City", "Location_Suburb", "HouseAge", "Rooms_per_1000sqft", "Size_per_Bedroom", "Is_City"]
+["Size_m2", "Bedrooms", "Bathrooms", "YearBuilt", "Location_City", "Location_Suburb", "HouseAge", "Rooms_per_1000m2", "Size_per_Bedroom", "Is_City"]

@@ -9,25 +9,25 @@ SCALER = joblib.load("modeles/house_scaler.pkl")
 # feutures engineering, one-hot, scalling
 def prepare_features_from_raw(record: dict) -> pd.DataFrame:
   
-  size = float(record.get("Size_sqft", 0.0))
+  size = float(record.get("Size_m2", 0.0))
   beds = int(record.get("Bedrooms", 0.0))
   baths = int(record.get("Bathrooms", 0.0))
   year = int(record.get("YearBuilt", CURRENT_YEAR))
   loc = str(record.get("Location", "city"))
 
   house_age = CURRENT_YEAR - year
-  Rooms_per_1000sqft = ((beds + baths) / (size / 1000)) if size else 0.0
+  Rooms_per_1000m2 = ((beds + baths) / (size / 1000)) if size else 0.0
   Size_per_Bedroom = (size / beds) if beds else 0.0
   is_city = 1 if loc.lower() == "city" else 0
 
   row = {col: 0.0 for col in TRAIN_COLUMNS}
   for name, val in [
-    ("Size_sqft", size),
+    ("Size_m2", size),
     ("Bedrooms", beds),
     ("Bathrooms", baths),
     ("YearBuilt", year),
     ("HouseAge", house_age),
-    ("Rooms_per_1000sqft", Rooms_per_1000sqft),
+    ("Rooms_per_1000m2", Rooms_per_1000m2),
     ("Size_per_Bedroom", Size_per_Bedroom),
   ]:
     if name in row:

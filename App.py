@@ -20,7 +20,7 @@ def home():
         "endpoints": {
             "POST /predict?model=lr|rf": {
                 "expects_json": {
-                    "Size_sqft": "float",
+                    "Size_m2": "float",
                     "Bedrooms": "int",
                     "Bathrooms": "int",
                     "YearBuilt": "int",
@@ -40,7 +40,7 @@ def predict():
 
     # 2) read payload
     data = request.get_json(silent=True) or {}
-    required = ["Size_sqft", "Bedrooms", "Bathrooms", "YearBuilt", "Location"]
+    required = ["Size_m2", "Bedrooms", "Bathrooms", "YearBuilt", "Location"]
     missing = [k for k in required if k not in data]
     if missing:
         return jsonify({"error": f"Missing fields: {missing}"}), 400
@@ -54,14 +54,16 @@ def predict():
     return jsonify({
         "model": "linear_regression" if choice == "lr" else "random_forest",
         "input": {
-            "Size_sqft": float(data["Size_sqft"]),
+            "Size_m2": float(data["Size_m2"]),
             "Bedrooms": int(data["Bedrooms"]),
             "Bathrooms": int(data["Bathrooms"]),
             "YearBuilt": int(data["YearBuilt"]),
             "Location": str(data["Location"])
         },
-        "prediction": round(pred, 2)
-    })
+        "prediction": round(pred, 0)
+    }) 
+
+
 
 if __name__ == "__main__":
     App.run(host="0.0.0.0", port=8000, debug=True)

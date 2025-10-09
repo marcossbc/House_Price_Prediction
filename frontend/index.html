@@ -1,47 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>🏡 House Price Prediction</title>
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏡 House Rent Price Predictor</title>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <div class="container">
-    <h1><img width="60" height="70" src="https://img.icons8.com/3d-fluency/94/home.png" alt="home"/> House Price Prediction</h1>
-    <p class="subtitle">Enter house details to get instant price prediction</p>
+    <div class="main-container">
+        <h1><img width="60" height="70" src="https://img.icons8.com/3d-fluency/94/home.png" alt="home"/> House Rent Price for Somalia</h1>
+        <p class="subtitle">Enter house details to get instant Rent price prediction</p>
+        
+        <div class="content-wrapper">
+            
+            <form id="predictForm" class="card input-box">
+                <h2>House Details</h2>
 
-    <form id="predictForm" class="card">
-      <label><img width="30" height="30" src="https://img.icons8.com/isometric/50/expand.png" alt="expand"/>Size (sqft)</label>
-      <input type="number" id="Size_sqft" required>
+                <label><img width="30" height="30" src="https://img.icons8.com/isometric/50/expand.png" alt="expand"/>Size (m2)</label>
+                <input type="number" id="Size_m2" required value="150">
 
-      <label><img width="30" height="30" src="https://img.icons8.com/3d-fluency/94/double-bed.png" alt="double-bed"/>Bedrooms</label>
-      <input type="number" id="Bedrooms" required>
+                <label><img width="30" height="30" src="https://img.icons8.com/3d-fluency/94/double-bed.png" alt="double-bed"/>Bedrooms</label>
+                <input type="number" id="Bedrooms" required value="3">
 
-      <label><img width="30" height="30" src="https://img.icons8.com/3d-fluency/94/shower.png" alt="shower"/>Bathrooms</label>
-      <input type="number" id="Bathrooms" required>
+                <label><img width="30" height="30" src="https://img.icons8.com/3d-fluency/94/shower.png" alt="shower"/>Bathrooms</label>
+                <input type="number" id="Bathrooms" required value="2">
 
-      <label><img width="30" height="30" src="https://img.icons8.com/3d-fluency/94/calendar-1.png" alt="calendar-1"/>Year Built</label>
-      <input type="number" id="YearBuilt" required>
+                <label><img width="30" height="30" src="https://img.icons8.com/3d-fluency/94/calendar-1.png" alt="calendar-1"/>Year Built</label>
+                <input type="number" id="YearBuilt" required value="2005">
 
-      <label><img width="30" height="30" src="https://img.icons8.com/3d-fluency/94/map-marker.png" alt="map-marker"/>Location</label>
-      <select id="Location">
-        <option value="City">City</option>
-        <option value="Suburb">Suburb</option>
-        <option value="Rural">Rural</option>
-      </select>
+                <label><img width="30" height="30" src="https://img.icons8.com/3d-fluency/94/map-marker.png" alt="map-marker"/>Location</label>
+                <select id="Location">
+                    <option value="City">City</option>
+                    <option value="Suburb">Suburb</option>
+                    <option value="Rural">Rural</option>
+                </select>
 
-      <label><img width="30" height="30" src="https://img.icons8.com/3d-fluency/94/object.png" alt="object"/>Choose Model</label>
-      <select id="modelChoice">
-        <option value="lr">Linear Regression (Lr)</option>
-        <option value="rf">Random Forest (Rf)</option>
-      </select>
+                <label><img width="30" height="30" src="https://img.icons8.com/3d-fluency/94/object.png" alt="object"/>Choose Model</label>
+                <select id="modelChoice">
+                    <option value="lr">Linear Regression (Lr)</option>
+                    <option value="rf">Random Forest (Rf)</option>
+                </select>
 
-      <button type="submit">Predict</button>
-    </form>
+                <button type="submit">Predict Rent Price</button>
+            </form>
 
-    <div id="result" class="result-card hidden"></div>
-  </div>
+            <div class="card result-box">
+                <h2>Prediction Result</h2>
+                <div id="result" class="initial-message">
+                    <p>Geli faahfaahinta guriga si aad u hesho saadaasha qiimaha kirada.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <script src="./script.js"></script>
+    <script src="./script.js"></script>
 </body>
 </html>

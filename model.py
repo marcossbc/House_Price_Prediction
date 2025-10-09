@@ -19,7 +19,7 @@ from Utilities import prepare_features_from_raw
 # --------------------------------
 # 1) Load the cleaned dataset
 # --------------------------------
-CSV_PATH = "dataset/house_l0000_Clean_dataset.csv"
+CSV_PATH = "dataset/Clean_House_Rent.csv"
 df = pd.read_csv(CSV_PATH)
 
 # --------------------------------
@@ -92,17 +92,17 @@ print(f"  LR Pred     : ${p_lr_one:,.0f}")
 print(f"  RF Pred     : ${p_rf_one:,.0f}")
 
 
-# # 9) Optional: local custom input test using the shared helper
-# custom = {
-#     "Size_sqft": 2400, "Bedrooms": 3, "Bathrooms": 2,
-#     "YearBuilt": 2010, "Location": "City"
-# }
-# x_new_df = prepare_features_from_raw(custom)
+# 9) Optional: local custom input test using the shared helper
+custom = {
+    "Size_m2": 2400, "Bedrooms": 3, "Bathrooms": 2,
+    "YearBuilt": 2010, "Location": "City"
+}
+x_new_df = prepare_features_from_raw(custom)
 
-# print("the custom input data: ", x_new_df)
+print("the custom input data: ", x_new_df)
 
-# print(f"  LR Pred     : ${float(lr.predict(x_new_df)[0])}")
-# print(f"  RF Pred     : ${float(rf.predict(x_new_df)[0])}")
+print(f"  LR Pred     : ${float(lr.predict(x_new_df)[0])}")
+print(f"  RF Pred     : ${float(rf.predict(x_new_df)[0])}")
 
 joblib.dump(lr, "modeles/lr_model.joblib")
 joblib.dump(rf, "modeles/rf_model.joblib")
