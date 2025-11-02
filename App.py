@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
-
+import os
 from Utilities import prepare_features_from_raw  # uses saved scaler + columns
 
 # Initialize server
@@ -66,4 +66,4 @@ def predict():
 
 
 if __name__ == "__main__":
-    App.run(host="0.0.0.0", port=8000, debug=True)
+    App.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8000)), debug=True)
